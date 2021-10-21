@@ -1,0 +1,54 @@
+version: '3.7'
+services:
+  nestjs_db:
+    container_name: ${DB_CONTAINER_NAME}
+    image: mariadb:latest
+    restart: unless-stopped
+    volumes:
+      - ${DB_PATH}:/var/lib/mysql
+      - ./docker/init_db.sql:/docker/init_db.sql
+      - ./docker/mysql.conf:/etc/my.cnf
+    ports:
+      - ${MYSQL_DATABASE_PORT}:${MYSQL_DATABASE_PORT}
+    environment:
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+      MYSQL_DATABASE: ${MYSQL_DATABASE}
+      MYSQL_USER: ${MYSQL_USER}
+      MYSQL_PASSWORD: ${MYSQL_PASSWORD}
+      MYSQL_PORT: ${MYSQL_DATABASE_PORT}
+    expose:
+      - ${MYSQL_DATABASE_PORT}
+    env_file:
+      - .env
+    networks:
+      - expense_backend
+    command: mysqld --init-file="/docker/init_db.sql"
+  nestjs:
+    container_name: ${BACKEND_CONTAINER_NAME}
+    build:
+      context: .
+      dockerfile: api.docker.prod
+    command: bash -c '/wait && npm run typeorm:run; npm start'
+    environment:
+      WAIT_HOSTS: ${DB_CONTAINER_NAME}:${MYSQL_DATABASE_PORT}
+    volumes:
+      - .:/usr/src/app
+      - /usr/app/node_modules
+      - uploads:/static/upload
+    env_file:
+      - .env
+    tty: true
+    ports:
+      - ${BACKEND_PORT}:3000
+    networks: 
+      - expense_backend
+      - expense
+    depends_on:
+      - nestjs_db
+networks:
+  expense_backend:
+  expense:
+    external: true
+    name: ${NETWORK_NAME}
+volumes:
+  uploads: ~

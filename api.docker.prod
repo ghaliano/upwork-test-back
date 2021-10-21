@@ -1,0 +1,17 @@
+FROM node:14 AS builder
+WORKDIR /app
+COPY ./package.json ./
+RUN npm install
+COPY . .
+RUN npm run build
+
+## Add the wait script to the image
+ADD https://github.com/ufoscout/docker-compose-wait/releases/download/2.8.0/wait /wait
+RUN chmod +x /wait
+
+WORKDIR /app
+from builder
+COPY --from=builder /app ./
+EXPOSE 3000
+
+CMD bash -c "npm run start:prod"

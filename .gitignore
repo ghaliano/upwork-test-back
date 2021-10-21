@@ -1,0 +1,87 @@
+# compiled output
+.env
+/dist
+/node_modules
+
+# Logs
+logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+lerna-debug.log*
+
+# OS
+.DS_Store
+
+# Tests
+/coverage
+/.nyc_output
+
+# IDEs and editors
+/.idea
+.project
+.classpath
+.c9/
+*.launch
+.settings/
+*.sublime-workspace
+
+# IDE - VSCode
+.vscode/*
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json
+.prettierrc
+ormlogs.log
+
+
+#publicignore
+# compiled output
+public/dist
+public/tmp
+public/out-tsc
+
+# dependencies
+public/node_modules
+
+# IDEs and editors
+public/.idea
+public/.project
+public/.classpath
+public/.c9/
+public/*.launch
+public/.settings/
+public/*.sublime-workspace
+
+# IDE - VSCode
+public/.vscode/*
+public/!.vscode/settings.json
+public/!.vscode/tasks.json
+public/!.vscode/launch.json
+public/!.vscode/extensions.json
+
+# misc
+public/.sass-cache
+public/connect.lock
+public/coverage
+public/libpeerconnection.log
+public/npm-debug.log
+public/testem.log
+public/typings
+public/docs
+public/src/environments/environment.prod.ts
+
+# e2e
+public/e2e/*.js
+public/e2e/*.map
+
+# System Files
+public/.DS_Store
+public/Thumbs.db
+public/.editorconfig
+public/.stylelintrc.json
+
+static/upload/*
+docker/mysql.conf

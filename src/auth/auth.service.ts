@@ -55,7 +55,7 @@ export class AuthService {
     const entityManager = getManager();
     let user = Object.assign(new User(), data);
     user.password = await this.cryptPassword(data.password);
-    user.isEnabled = false;
+    user.isEnabled = true;
     await entityManager.insert(User, user);
     
     return true;

@@ -13,9 +13,7 @@ import { UserRegisterDTO } from 'src/user/dto/user.register.dto';
 export class AuthService {
   constructor(
     private userService: UserService,
-    private jwtService: JwtService,
-    private readonly mailerService: MailerService,
-    private httpService: HttpService
+    private jwtService: JwtService
   ) {}
 
   async validateUser(email: string, password: string): Promise<User | null> {
